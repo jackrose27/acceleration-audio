@@ -9,7 +9,7 @@ const baseURL = "/songs";
 let currentTrack = 0;
 
 const songs = [
-  { file: "Aidan.mp3", albulmArt: "Aiden.jpg" },
+  { file: "Better Days - LAKEY INSPIRED.mp3", albulmArt: "Aiden.jpg" },
   { file: "autumn_sun.mp3", albulmArt: "BestPart.jpg" },
 ];
 
