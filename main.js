@@ -9,15 +9,19 @@ const baseURL = "/songs";
 let currentTrack = 0;
 
 const songs = [
-  { file: "Better Days - LAKEY INSPIRED.mp3", albulmArt: "Aiden.jpg" },
+  { file: "Better Days - LAKEY INSPIRED.mp3", albumArt: "Aiden.jpg" },
   { file: "autumn_sun.mp3", albulmArt: "BestPart.jpg" },
+  { file: "i_cant_make_you_love_me_cover.mp3", albumArt: "i_cant_make_you_love_me_cover.jpeg" }
 ];
 
-playButton.addEventListener("click", () => {
+function playCurrentTrack() {
   audioPlayer.src = `${baseURL}/${songs[currentTrack].file}`;
   audioPlayer.load();
   audioPlayer.play();
-});
+}
+
+
+playButton.addEventListener("click", playCurrentTrack);
 
 pauseButton.addEventListener("click", () => {
   console.log("pause");
@@ -33,10 +37,10 @@ audioPlayer.addEventListener("timeupdate", () => {
   console.log(`${audioPlayer.currentTime} / ${audioPlayer.duration}`);
 
   audioPlayer.playbackRate += 0.01;
-});
+}); 
 
 document.addEventListener("keydown", (event) => {
-  switch (event.key.toLowerCase()) {   
+  switch (event.key.toLowerCase()) {
     case " ":
       event.preventDefault();
       audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
@@ -45,5 +49,22 @@ document.addEventListener("keydown", (event) => {
     case "m":
       audioPlayer.muted = !audioPlayer.muted;
       break;
+
+    case "arrowright":
+      audioPlayer.currentTime = Math.min(
+        audioPlayer.currentTime + 10,
+        audioPlayer.duration || audioPlayer.currentTime
+      );
+      break;
+
+    case "arrowleft":
+      audioPlayer.currentTime = Math.max(audioPlayer.currentTime - 10, 0);
+      break;
   }
+});
+
+//Goes to next song when currentTrack ends 
+audioPlayer.addEventListener("ended", () => {
+  currentTrack = (currentTrack + 1) % songs.length;
+  playCurrentTrack();
 });
