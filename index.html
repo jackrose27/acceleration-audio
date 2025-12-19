@@ -3,54 +3,145 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acceleration Audio | The global leader in accelerating music</title>
+    <title>Acceleration Audio</title>
 
     <link rel="stylesheet" href="output.css" />
   </head>
-  <body>
-    <h1>Acceleration Audio</h1>
-
-    <i data-lucide="x"></i>
-    <i data-lucide="menu"></i>
-
-    <button id="playButton">
-      <i data-lucide="play" class="w-50 h-50"></i>
-    </button>
-
-    <a href="">
-      <i data-lucide="play" class="text-red-600 fill-amber-600"></i>
-    </a>
-
-    <a href="">
-      <i data-lucide="play" class="text-amber-600 fill-transparent"></i>
-    </a>
-
-    <!-- <div class="icon-play"></div> -->
-    <button id="pauseButton">
-      <i data-lucide="pause" class="text-transparent fill-amber-600 w-50 h-60">
-      </i>
-    </button>
-
-
-    <button id="pauseButton2">
-      <i data-lucide="pause" class="text-amber-600 fill-transparent"> </i>
-    </button>
-
-    <p>
-      <progress id="progress" value="0" max="1" style="width:100%"></progress>
-
-      <div id="custom-progress" class="w-full h-8 bg-amber-100 trasition-all">
-        <div id="custom-progress-bar" class="w-0 h-8 bg-amber-500 z-10"></div>
+  <body
+    class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-slate-100 min-h-screen antialiased"
+  >
+    <!-- Header -->
+    <header
+      class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between"
+    >
+      <div class="flex items-center space-x-4">
+        <div class="bg-amber-400 text-slate-900 font-bold px-3 py-2 rounded-md">
+          AA
+        </div>
+        <div>
+          <h1 class="text-2xl font-extrabold tracking-tight">
+            Acceleration Audio
+          </h1>
+          <p class="text-sm text-amber-200/70">Accelerating music — globally</p>
+        </div>
       </div>
-    </p>
 
-    <audio src="" id="audioPlayer"></audio>
+      <nav
+        class="hidden md:flex items-center space-x-6 text-sm text-amber-100/80"
+      >
+        <a class="hover:text-amber-300" href="#">Browse</a>
+        <a class="hover:text-amber-300" href="#">Playlists</a>
+        <a class="hover:text-amber-300" href="#">About</a>
+        <div class="ml-4">
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search songs..."
+            class="rounded-lg px-3 py-2 text-slate-900"
+          />
+        </div>
+      </nav>
 
-    <script src="main.js"></script>
+      <button
+        class="md:hidden p-2 rounded-md bg-slate-800/50"
+        aria-label="open menu"
+      >
+        <i data-lucide="menu"></i>
+      </button>
+    </header>
+
+    <!-- Main -->
+    <main class="max-w-6xl mx-auto px-6 pb-32">
+      <section class="mb-8">
+        <div
+          class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+        >
+          <div>
+            <h2 class="text-4xl font-extrabold mb-2">
+              Discover new beats & timeless tracks
+            </h2>
+            <p class="text-amber-200/80 max-w-xl">
+              A lightweight, fast, and stylish audio player to explore songs in
+              your collection.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button
+              id="shuffleBtn"
+              class="bg-amber-400 hover:bg-amber-500 text-slate-900 px-4 py-2 rounded-md flex items-center gap-2"
+            >
+              <i data-lucide="shuffle"></i>
+              <span class="font-semibold">Shuffle</span>
+            </button>
+            <button
+              id="uploadBtn"
+              class="border border-slate-700 px-4 py-2 rounded-md text-sm"
+            >
+              Upload
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Song grid -->
+      <section>
+        <div
+          id="songGrid"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        ></div>
+      </section>
+    </main>
+
+    <!-- Sticky player -->
+    <div
+      class="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:bottom-8 z-40"
+    >
+      <div
+        class="bg-slate-900/90 backdrop-blur rounded-2xl shadow-lg px-4 py-3 flex items-center gap-4"
+      >
+        <img
+          id="nowPlayingArt"
+          src="albumart/Better Days.jpg"
+          alt="album art"
+          class="w-14 h-14 rounded-md object-cover"
+        />
+        <div class="flex-1 min-w-0">
+          <div id="nowPlayingTitle" class="font-semibold truncate">--</div>
+          <div id="nowPlayingArtist" class="text-sm text-amber-200/70 truncate">
+            --
+          </div>
+
+          <div
+            id="custom-progress"
+            class="mt-2 w-full h-2 bg-slate-700 rounded-full cursor-pointer"
+          >
+            <div
+              id="custom-progress-bar"
+              class="w-0 h-2 bg-amber-400 rounded-full"
+            ></div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="prevBtn" class="p-2 rounded-md hover:bg-slate-800/60">
+            <i data-lucide="skip-back"></i>
+          </button>
+          <button
+            id="playPauseBtn"
+            class="p-3 rounded-full bg-amber-400 text-slate-900 shadow-md"
+          >
+            <i data-lucide="play" id="playPauseIcon"></i>
+          </button>
+          <button id="nextBtn" class="p-2 rounded-md hover:bg-slate-800/60">
+            <i data-lucide="skip-forward"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
 
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+    <script src="main.js" defer></script>
   </body>
 </html>
