@@ -15,54 +15,14 @@ let currentTrack = 0;
 let isPlaying = false;
 
 const songs = [
-  {
-    file: "Aidan.mp3",
-    albumArt: "Aidan.jpg",
-    title: "Aidan",
-    artist: "Various",
-  },
-  {
-    file: "autumn_sun.mp3",
-    albumArt: "autumn_sun.png",
-    title: "Autumn Sun",
-    artist: "Instrumental",
-  },
-  {
-    file: "best_part_of_me.mp3",
-    albumArt: "BestPart.jpg",
-    title: "Best Part Of Me",
-    artist: "Artist",
-  },
-  {
-    file: "Better Days - LAKEY INSPIRED.mp3",
-    albumArt: "Better Days.jpg",
-    title: "Better Days",
-    artist: "LAKEY INSPIRED",
-  },
-  {
-    file: "i_cant_make_you_love_me_cover.mp3",
-    albumArt: "i_cant_make_you_love_me_cover.jpeg",
-    title: "I Can't Make You Love Me",
-    artist: "Cover",
-  },
-  {
-    file: "just_relax.mp3",
-    albumArt: "justRelax_img.jpeg",
-    title: "Just Relax",
-    artist: "Chill",
-  },
-  {
-    file: "paranormal-is-real-leonell-cassio.mp3",
-    albumArt: "paranormal_real_500.jpg",
-    title: "Paranormal Is Real",
-    artist: "Leonell Cassio",
-  },
-  {
-    file: "Polarity.mp3",
-    albumArt: "Polarity.jpg",
-    title: "Polarity",
-    artist: "Artist",
-  },
+  { file: "Aidan.mp3", albumArt: "Aidan.jpg", title: "Aidan", artist: "Various" },
+  { file: "autumn_sun.mp3", albumArt: "autumn_sun.png", title: "Autumn Sun", artist: "Instrumental" },
+  { file: "best_part_of_me.mp3", albumArt: "BestPart.jpg", title: "Best Part Of Me", artist: "Artist" },
+  { file: "Better Days - LAKEY INSPIRED.mp3", albumArt: "Better Days.jpg", title: "Better Days", artist: "LAKEY INSPIRED" },
+  { file: "i_cant_make_you_love_me_cover.mp3", albumArt: "i_cant_make_you_love_me_cover.jpeg", title: "I Can't Make You Love Me", artist: "Cover" },
+  { file: "just_relax.mp3", albumArt: "justRelax_img.jpeg", title: "Just Relax", artist: "Chill" },
+  { file: "paranormal-is-real-leonell-cassio.mp3", albumArt: "paranormal_real_500.jpg", title: "Paranormal Is Real", artist: "Leonell Cassio" },
+  { file: "Polarity.mp3", albumArt: "Polarity.jpg", title: "Polarity", artist: "Artist" }
 ];
 
 function renderSongGrid() {
@@ -89,10 +49,7 @@ function renderSongGrid() {
   if (window.lucide && typeof lucide.createIcons === "function") {
     lucide.createIcons();
   } else {
-    window.addEventListener(
-      "load",
-      () => window.lucide && lucide.createIcons()
-    );
+    window.addEventListener("load", () => window.lucide && lucide.createIcons());
   }
 }
 
@@ -128,14 +85,12 @@ function updatePlayerUI() {
     playPauseIcon.setAttribute("data-feather", "play");
     playPauseIcon.setAttribute("data-lucide", "play");
     playPauseIcon.innerHTML = "";
-    if (window.lucide && typeof lucide.createIcons === "function")
-      lucide.createIcons();
+    if (window.lucide && typeof lucide.createIcons === "function") lucide.createIcons();
   } else {
     playPauseIcon.setAttribute("data-feather", "pause");
     playPauseIcon.setAttribute("data-lucide", "pause");
     playPauseIcon.innerHTML = "";
-    if (window.lucide && typeof lucide.createIcons === "function")
-      lucide.createIcons();
+    if (window.lucide && typeof lucide.createIcons === "function") lucide.createIcons();
   }
 }
 
@@ -172,6 +127,10 @@ nextBtn.addEventListener("click", () => {
 audioPlayer.addEventListener("timeupdate", () => {
   const pct = (audioPlayer.currentTime / (audioPlayer.duration || 1)) * 100;
   customProgressBar.style.width = `${pct}%`;
+
+  console.log(`${audioPlayer.currentTime} / ${audioPlayer.duration}`);
+  // Reintroduce the original (buggy) behavior: gradually increase playbackRate each timeupdate
+  audioPlayer.playbackRate += 0.01;
 });
 
 customProgress.addEventListener("click", (e) => {
